@@ -17,7 +17,7 @@ const graph = svg
 
 // scales
 
-const x = d3.scaleTime().range([o, graphWidth]);
+const x = d3.scaleTime().range([0, graphWidth]);
 const y = d3.scaleLinear().range([graphHeight, 0]);
 
 //axes groups
@@ -32,7 +32,34 @@ const yAxisGroup = graph.append("g").attr("class", "y-axis");
 // update function
 
 const update = data => {
-  console.log(data);
+  //   console.log(data);
+
+  // set scale domains
+  x.domain(d3.extent(data, d => new Date(d.date)));
+  y.domain([0, d3.max(data, d => d.distance)]);
+
+  // craete axes
+
+  const xAxis = d3
+    .axisBottom(x)
+    .ticks(4)
+    .tickFormat(d3.timeFormat("%b %d"));
+
+  const yAxis = d3
+    .axisLeft(y)
+    .ticks(4)
+    .tickFormat(d => d + "m");
+
+  // call axes
+
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
+
+  // rotate axis text
+
+  xAxisGroup.selectAll('text')
+  .attr('transform', 'rotate(-40)')
+  .attr('text-anchor','end')
 };
 
 // data and firestore
