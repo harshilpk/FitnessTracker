@@ -38,7 +38,27 @@ const update = data => {
   x.domain(d3.extent(data, d => new Date(d.date)));
   y.domain([0, d3.max(data, d => d.distance)]);
 
-  // craete axes
+  // create circles for objects
+
+  const circles = graph.selectAll("circle").data(data);
+
+  // remove unwanted points
+  circles.exit().remove();
+
+  // update current points
+  circles.attr("cx", d => x(new Date(d.date))).attr("cy", d => y(d.distance));
+
+  // add new points
+
+  circles
+    .enter()
+    .append("circle")
+    .attr("r", 4)
+    .attr("cx", d => x(new Date(d.date)))
+    .attr("cy", d => y(d.distance))
+    .attr("fill", "#ccc");
+
+  // create axes
 
   const xAxis = d3
     .axisBottom(x)
@@ -57,9 +77,10 @@ const update = data => {
 
   // rotate axis text
 
-  xAxisGroup.selectAll('text')
-  .attr('transform', 'rotate(-40)')
-  .attr('text-anchor','end')
+  xAxisGroup
+    .selectAll("text")
+    .attr("transform", "rotate(-40)")
+    .attr("text-anchor", "end");
 };
 
 // data and firestore
