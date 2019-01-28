@@ -34,13 +34,28 @@
       </div>
       <div class="row">
           <form class="col m6 push-m3">
-              <p class="flow-text grey-text center">How much <span>cycling</span> have you done today?</p>
-              <input type="text" class="grea-text" id="cycling" placeholder="Distance in m">
+              <p class="flow-text grey-text center">How much <span>walking</span> have you done today?</p>
+              <input type="text" class="grea-text" id="walking" placeholder="Distance in m">
               <p class="center pink-text error text-lighten-1"></p>
           </form>
       </div>
     </div>
-
+    <script src="../apiKey.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: apiKey,
+        authDomain: "d3-firebase-41c28.firebaseapp.com",
+        databaseURL: "https://d3-firebase-41c28.firebaseio.com",
+        projectId: "d3-firebase-41c28",
+        storageBucket: "d3-firebase-41c28.appspot.com",
+        messagingSenderId: "920123715617"
+      };
+      firebase.initializeApp(config);
+      const db = firebase.firestore();
+    </script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="./index.js"></script>
     <script src="./graph.js"></script>
